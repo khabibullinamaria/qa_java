@@ -12,6 +12,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.fail;
+
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
     @Mock
@@ -34,9 +37,19 @@ public class LionTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test(expected = Exception.class)
-    public void doesHaveManeError() throws Exception {
-        Lion lion = new Lion("aa", feline);
+    @Test
+    public void doesHaveManeError() throws Exception
+    {
+        try
+        {
+            Lion lion = new Lion("aa", feline);
+            fail("Should have thrown SomeException but did not!");
+        }
+        catch( final Exception e )
+        {
+            final String msg = "Используйте допустимые значения пола животного - самец или самка";
+            assertEquals(msg, e.getMessage());
+        }
     }
 
     @Test
